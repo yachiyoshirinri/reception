@@ -42,7 +42,6 @@ const App = () => {
     breakfastPreference: ''
   });
 
-// This will be used for the TextField components
 const handleTextInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
   const name = event.target.name;
   const value = event.target.value;
@@ -55,7 +54,6 @@ const handleTextInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAre
   }
 };
 
-// This will be used for the Select components
 const handleSelectInputChange = (event: SelectChangeEvent<string>) => {
   const name = event.target.name;
   const value = event.target.value;
@@ -67,7 +65,6 @@ const handleSelectInputChange = (event: SelectChangeEvent<string>) => {
     });
   }
 };
-  
 
 const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   event.preventDefault();
@@ -78,15 +75,34 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   if (formState.name === '') {
     tempErrors.push(`名前を入力してください。`);
   }
+  if (formState.gender === '') {
+    tempErrors.push(`性別を選択してください。`);
+  }
+  if (formState.affiliation === '') {
+    tempErrors.push(`所属を選択してください。`);
+  }
+  if (formState.breakfastPreference === '') {
+    tempErrors.push(`朝食の選択をしてください。`);
+  }
 
   setErrors(tempErrors);
 
   // Send the form data to LINE bot via LIFF
   if(tempErrors.length === 0 && liff.isLoggedIn()) {
     try {
+      let message = [
+        `名前: ${formState.name}`,
+        `性別: ${formState.gender}`,
+        `所属: ${formState.affiliation}`,
+        formState.clubName ? `単会名: ${formState.clubName}` : '',
+        formState.source ? `どのように知りましたか: ${formState.source}` : '',
+        formState.phoneNumber ? `電話番号: ${formState.phoneNumber}` : '',
+        `朝食は必要ですか: ${formState.breakfastPreference}`
+      ].filter(item => item !== '').join('\n');
+      
       await liff.sendMessages([{
         type: 'text',
-        text: "フォーム初回登録\n" + JSON.stringify(formState)
+        text: "フォーム初回登録\n" + message
       }]);
       liff.closeWindow();
     } catch (err) {
@@ -94,6 +110,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     }
   }
 };
+
 
   return (
     <Container>
@@ -105,7 +122,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
           </Grid>
           <Grid item xs={12}>
           <Typography variant="h6" component="div">性別</Typography>
-            <FormControl fullWidth>
+            <FormControl required fullWidth>
             <Select name="gender" value={formState.gender} onChange={handleSelectInputChange}>
                 <MenuItem value="">--選択してください--</MenuItem>
                 <MenuItem value="Male">男性</MenuItem>
@@ -116,7 +133,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h6" component="div">所属</Typography>
-            <FormControl fullWidth>
+            <FormControl required fullWidth>
               <Select name="affiliation" onChange={handleSelectInputChange}>
                 <MenuItem value="">--選択してください--</MenuItem>
                 <MenuItem value="自単会">自単会</MenuItem>
@@ -172,4 +189,3 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 };
 
 export default App;
-
