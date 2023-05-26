@@ -69,33 +69,31 @@ const handleSelectInputChange = (event: SelectChangeEvent<string>) => {
 };
   
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setErrors([]);  // Clear out previous errors
+const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  setErrors([]);  // Clear out previous errors
 
-    // Input validation
-    let tempErrors: string[] = [];
-    for (let key in formState) {
-      if (formState[key as keyof FormState] === '') {
-        tempErrors.push(`${key} を入力してください。`);
-      }
+  // Input validation
+  let tempErrors: string[] = [];
+  if (formState.name === '') {
+    tempErrors.push(`名前を入力してください。`);
+  }
+
+  setErrors(tempErrors);
+
+  // Send the form data to LINE bot via LIFF
+  if(tempErrors.length === 0 && liff.isLoggedIn()) {
+    try {
+      await liff.sendMessages([{
+        type: 'text',
+        text: "フォーム初回登録\n" + JSON.stringify(formState)
+      }]);
+      liff.closeWindow();
+    } catch (err) {
+      setErrors(errors => [...errors, 'フォームの送信中に問題が発生しました。もう一度試してください。']);
     }
-
-    setErrors(tempErrors);
-
-    // Send the form data to LINE bot via LIFF
-    if(tempErrors.length === 0 && liff.isLoggedIn()) {
-      try {
-        await liff.sendMessages([{
-          type: 'text',
-          text: JSON.stringify(formState)
-        }]);
-        liff.closeWindow();
-      } catch (err) {
-        setErrors(errors => [...errors, 'フォームの送信中に問題が発生しました。もう一度試してください。']);
-      }
-    }
-  };
+  }
+};
 
   return (
     <Container>
@@ -108,7 +106,7 @@ const handleSelectInputChange = (event: SelectChangeEvent<string>) => {
           <Grid item xs={12}>
           <Typography variant="h6" component="div">性別</Typography>
             <FormControl fullWidth>
-            <Select name="gender" value={formState.gender} onChange={handleSelectInputChange} required>
+            <Select name="gender" value={formState.gender} onChange={handleSelectInputChange}>
                 <MenuItem value="">--選択してください--</MenuItem>
                 <MenuItem value="Male">男性</MenuItem>
                 <MenuItem value="Female">女性</MenuItem>
@@ -119,7 +117,7 @@ const handleSelectInputChange = (event: SelectChangeEvent<string>) => {
           <Grid item xs={12}>
             <Typography variant="h6" component="div">所属</Typography>
             <FormControl fullWidth>
-              <Select name="affiliation" onChange={handleSelectInputChange} required>
+              <Select name="affiliation" onChange={handleSelectInputChange}>
                 <MenuItem value="">--選択してください--</MenuItem>
                 <MenuItem value="自単会">自単会</MenuItem>
                 <MenuItem value="他単会">他単会</MenuItem>
@@ -150,7 +148,7 @@ const handleSelectInputChange = (event: SelectChangeEvent<string>) => {
   
           <Grid item xs={12}>
             <Typography variant="h6" component="div">朝食は必要ですか?</Typography>
-            <FormControl component="fieldset" required>
+            <FormControl component="fieldset">
               <RadioGroup aria-label="breakfastPreference" name="breakfastPreference" value={formState.breakfastPreference} onChange={handleTextInputChange}>
                 <FormControlLabel value="Yes" control={<Radio />} label="はい" />
                 <FormControlLabel value="No" control={<Radio />} label="いいえ" />
