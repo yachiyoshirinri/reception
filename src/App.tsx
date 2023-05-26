@@ -81,9 +81,6 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   if (formState.affiliation === '') {
     tempErrors.push(`所属を選択してください。`);
   }
-  if (formState.breakfastPreference === '') {
-    tempErrors.push(`朝食の選択をしてください。`);
-  }
 
   setErrors(tempErrors);
 
@@ -96,8 +93,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         `所属: ${formState.affiliation}`,
         formState.clubName ? `単会名: ${formState.clubName}` : '',
         formState.source ? `どのように知りましたか: ${formState.source}` : '',
-        formState.phoneNumber ? `電話番号: ${formState.phoneNumber}` : '',
-        `朝食は必要ですか: ${formState.breakfastPreference}`
+        formState.phoneNumber ? `電話番号: ${formState.phoneNumber}` : ''
       ].filter(item => item !== '').join('\n');
       
       await liff.sendMessages([{
@@ -162,17 +158,6 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
               </Grid>
             </>
           )}
-  
-          <Grid item xs={12}>
-            <Typography variant="h6" component="div">朝食は必要ですか?</Typography>
-            <FormControl component="fieldset">
-              <RadioGroup aria-label="breakfastPreference" name="breakfastPreference" value={formState.breakfastPreference} onChange={handleTextInputChange}>
-                <FormControlLabel value="はい" control={<Radio />} label="はい" />
-                <FormControlLabel value="いいえ" control={<Radio />} label="いいえ" />
-              </RadioGroup>
-            </FormControl>
-          </Grid>
-  
           <Grid item xs={12}>
             <Button type="submit" variant="contained" color="primary" fullWidth>送信</Button>
           </Grid>
