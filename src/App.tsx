@@ -98,7 +98,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       
       await liff.sendMessages([{
         type: 'text',
-        text: "フォーム初回登録\n" + message
+        text: "初回登録\n" + message
       }]);
       liff.closeWindow();
     } catch (err) {
