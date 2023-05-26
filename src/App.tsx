@@ -125,9 +125,9 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
             <FormControl required fullWidth>
             <Select name="gender" value={formState.gender} onChange={handleSelectInputChange}>
                 <MenuItem value="">--選択してください--</MenuItem>
-                <MenuItem value="Male">男性</MenuItem>
-                <MenuItem value="Female">女性</MenuItem>
-                <MenuItem value="Other">その他</MenuItem>
+                <MenuItem value="男性">男性</MenuItem>
+                <MenuItem value="女性">女性</MenuItem>
+                <MenuItem value="その他">その他</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -167,8 +167,8 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
             <Typography variant="h6" component="div">朝食は必要ですか?</Typography>
             <FormControl component="fieldset">
               <RadioGroup aria-label="breakfastPreference" name="breakfastPreference" value={formState.breakfastPreference} onChange={handleTextInputChange}>
-                <FormControlLabel value="Yes" control={<Radio />} label="はい" />
-                <FormControlLabel value="No" control={<Radio />} label="いいえ" />
+                <FormControlLabel value="はい" control={<Radio />} label="はい" />
+                <FormControlLabel value="いいえ" control={<Radio />} label="いいえ" />
               </RadioGroup>
             </FormControl>
           </Grid>
