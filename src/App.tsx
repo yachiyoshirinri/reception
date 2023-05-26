@@ -153,7 +153,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
           {formState.affiliation === "ゲスト" && (
             <>
               <Grid item xs={12}>
-                <Typography variant="h6" component="div">どのように知りましたか?</Typography>
+                <Typography variant="h6" component="div">当会を知ったきっかけ</Typography>
                 <TextField name="source" onChange={handleTextInputChange} fullWidth />
               </Grid>
               <Grid item xs={12}>
