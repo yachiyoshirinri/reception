@@ -1,0 +1,27 @@
+{
+  "name": "liff-form",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "preview": "vite preview",
+    "build": "tsc && vite build && cp -r dist docs",
+    "rebuild": "vite build && rm -R docs && cp -r dist docs",
+    "git": "git add . && git commit && git push origin main"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@line/liff": "2.22.1",
+    "@mui/material": "^5.13.2",
+    "grid": "^4.10.8",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.7",
+    "@types/react-dom": "18.2.4",
+    "@vitejs/plugin-react": "4.0.0",
+    "typescript": "5.0.4",
+    "vite": "4.3.9"
+  }
+}
