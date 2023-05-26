@@ -131,7 +131,7 @@ const handleSelectInputChange = (event: SelectChangeEvent<string>) => {
           {formState.affiliation === "他単会" && (
             <Grid item xs={12}>
               <Typography variant="h6" component="div">単会名</Typography>
-              <TextField name="clubName" onChange={handleTextInputChange} required fullWidth />
+              <TextField name="clubName" onChange={handleTextInputChange} fullWidth />
             </Grid>
           )}
   
@@ -139,11 +139,11 @@ const handleSelectInputChange = (event: SelectChangeEvent<string>) => {
             <>
               <Grid item xs={12}>
                 <Typography variant="h6" component="div">どのように知りましたか?</Typography>
-                <TextField name="source" onChange={handleTextInputChange} required fullWidth />
+                <TextField name="source" onChange={handleTextInputChange} fullWidth />
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="h6" component="div">電話番号</Typography>
-                <TextField name="phoneNumber" onChange={handleTextInputChange} required fullWidth />
+                <TextField name="phoneNumber" onChange={handleTextInputChange} fullWidth />
               </Grid>
             </>
           )}
