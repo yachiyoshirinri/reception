@@ -145,12 +145,20 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
               <TextField name="clubName" onChange={handleTextInputChange} fullWidth />
             </Grid>
           )}
-  
           {formState.affiliation === "ゲスト" && (
             <>
               <Grid item xs={12}>
                 <Typography variant="h6" component="div">当会を知ったきっかけ</Typography>
-                <TextField name="source" onChange={handleTextInputChange} fullWidth />
+                <FormControl fullWidth>
+                  <Select name="source" value={formState.source} onChange={handleSelectInputChange}>
+                    <MenuItem value="">--選択してください--</MenuItem>
+                    <MenuItem value="知り合いからの紹介">知り合いからの紹介</MenuItem>
+                    <MenuItem value="当会ホームページ">当会ホームページ</MenuItem>
+                    <MenuItem value="facebook">facebook</MenuItem>
+                    <MenuItem value="こくちーず">こくちーず</MenuItem>
+                    <MenuItem value="その他">その他</MenuItem>
+                  </Select>
+                </FormControl>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="h6" component="div">電話番号</Typography>
