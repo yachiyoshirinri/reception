@@ -6,6 +6,7 @@ import { SelectChangeEvent } from '@mui/material/Select';
 
 interface FormState {
   name: string;
+  furigana: string;
   gender: string;
   affiliation: string;
   clubName: string;
@@ -34,6 +35,7 @@ const App = () => {
 
   const [formState, setFormState] = useState<FormState>({
     name: '',
+    furigana: '',
     gender: '',
     affiliation: '',
     clubName: '',
@@ -75,6 +77,9 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   if (formState.name === '') {
     tempErrors.push(`名前を入力してください。`);
   }
+  if (formState.furigana === '') {
+    tempErrors.push(`ふりがなを入力してください。`);
+  }
   if (formState.gender === '') {
     tempErrors.push(`性別を選択してください。`);
   }
@@ -89,6 +94,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       let message = [
         `名前: ${formState.name}`,
+        `ふりがな: ${formState.furigana}`,
         `性別: ${formState.gender}`,
         `所属: ${formState.affiliation}`,
         formState.clubName ? `単会名: ${formState.clubName}` : '',
@@ -115,6 +121,10 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
           <Grid item xs={12}>
             <Typography variant="h6" component="div">名前</Typography>
             <TextField name="name" onChange={handleTextInputChange} required fullWidth />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h6" component="div">ふりがな(ひらがな)</Typography>
+            <TextField name="furigana" onChange={handleTextInputChange} required fullWidth />
           </Grid>
           <Grid item xs={12}>
           <Typography variant="h6" component="div">性別</Typography>
